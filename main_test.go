@@ -27,6 +27,8 @@ import (
 )
 
 func TestEntrypoint(t *testing.T) {
+	os.Setenv("CRUD_BASE_URL", "http://crud.example.org")
+
 	t.Run("opens server on port 3000", func(t *testing.T) {
 		shutdown := make(chan os.Signal, 1)
 

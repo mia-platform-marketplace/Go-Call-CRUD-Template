@@ -58,7 +58,7 @@ func entrypoint(shutdown chan os.Signal) {
 	if env.ServicePrefix != "" && env.ServicePrefix != "/" {
 		serviceRouter = router.PathPrefix(fmt.Sprintf("%s/", path.Clean(env.ServicePrefix))).Subrouter()
 	}
-	setupRouter(serviceRouter)
+	setupRouter(serviceRouter, &env)
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf("0.0.0.0:%s", env.HTTPPort),
