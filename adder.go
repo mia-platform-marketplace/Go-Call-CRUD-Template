@@ -19,7 +19,7 @@ var (
 )
 
 func (a *adder) sum(cxt context.Context) (int, error) {
-	urlPath := "/order/?status=delivered"
+	urlPath := "orders/?status=delivered"
 	req, err := a.client.NewRequestWithContext(cxt, http.MethodGet, urlPath, nil)
 	if err != nil {
 		return 0, fmt.Errorf("%w: %s", errGenericError, err.Error())

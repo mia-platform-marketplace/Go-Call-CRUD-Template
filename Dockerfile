@@ -26,9 +26,9 @@ RUN GOOS=linux CGO_ENABLED=0 GOARCH=amd64 go build -ldflags="-w -s" -o main .
 
 FROM scratch
 
-LABEL maintainer="tommaso.allevi" \
-  name="tommaso-example" \
-  description="" \
+LABEL maintainer="%CUSTOM_PLUGIN_CREATOR_USERNAME%" \
+  name="%CUSTOM_PLUGIN_SERVICE_NAME%" \
+  description="%CUSTOM_PLUGIN_SERVICE_DESCRIPTION%" \
   eu.mia-platform.url="https://www.mia-platform.eu"
 
 # Import the user and group files from the builder.

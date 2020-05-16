@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"errors"
+	"net/url"
 	"testing"
 
 	"github.com/davidebianchi/go-jsonclient"
@@ -17,6 +18,8 @@ func TestAdder(t *testing.T) {
 	})
 	require.NoError(t, err)
 	require.NotNil(t, client)
+	expectedQuery, err := url.ParseQuery("status=delivered")
+	require.NoError(t, err)
 
 	t.Run("should correctly calculate the sum", func(t *testing.T) {
 		defer gock.Off()
@@ -24,15 +27,11 @@ func TestAdder(t *testing.T) {
 		a := adder{client: client}
 		cxt := context.Background()
 
-		gock.New(crudBaseURL).
-			Get("/order/").
-			MatchParam("status", "delivered").
-			Reply(200).
-			JSON([]map[string]int{
-				{"totalPrice": 0},
-				{"totalPrice": 3},
-				{"totalPrice": 1},
-			})
+		mockGetOrdersWithQueryParameters(crudBaseURL, &expectedQuery, 200, []map[string]int{
+			{"totalPrice": 0},
+			{"totalPrice": 3},
+			{"totalPrice": 1},
+		})
 
 		total, err := a.sum(cxt)
 
@@ -46,14 +45,22 @@ func TestAdder(t *testing.T) {
 		a := adder{client: client}
 		cxt := context.Background()
 
-		gock.New(crudBaseURL).
-			Get("/order/").
-			Reply(500).
-			JSON([]map[string]int{})
+		mockGetOrdersWithQueryParameters(crudBaseURL, &expectedQuery, 500, "")
 
 		total, err := a.sum(cxt)
 
 		require.True(t, errors.Is(err, errCrudError))
 		require.Equal(t, 0, total)
 	})
+}
+
+func mockGetOrdersWithQueryParameters(baseURL string, query *url.Values, statusCode int, responseBody interface{}) {
+	mockRequest := gock.New(baseURL).
+		Get("/orders/")
+	if query != nil {
+		mockRequest.URLStruct.RawQuery = query.Encode()
+	}
+	mockRequest.
+		Reply(statusCode).
+		JSON(responseBody)
 }

@@ -3,4 +3,5 @@
 .vscode
 *.env
 *.log*
-tommaso-example
+%CUSTOM_PLUGIN_SERVICE_NAME%
+service

@@ -18,6 +18,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/davidebianchi/go-jsonclient"
@@ -31,7 +32,7 @@ func setupRouter(router *mux.Router, env *EnvironmentVariables) {
 	}
 	client, err := jsonclient.New(opts)
 	if err != nil {
-		panic("Error creating client")
+		panic(fmt.Errorf("%w: error creating client", err))
 	}
 
 	a := adder{client: client}
@@ -45,21 +46,32 @@ func setupRouter(router *mux.Router, env *EnvironmentVariables) {
 		total, err := a.sum(req.Context())
 		if err != nil {
 			logger.WithError(err).Error("adder error")
-			http.Error(w, "Error", http.StatusInternalServerError)
+
+			returnWithMarshal(w, http.StatusInternalServerError, &errorResponse{
+				Message: err.Error(),
+			})
+			return
 		}
 
-		returnBody := getSumOrder{total}
-		returnBodyInBytes, err := json.Marshal(&returnBody)
-		if err != nil {
-			logger.WithError(err).Error("Error in marshalling")
-			http.Error(w, "Error", http.StatusInternalServerError)
-		}
-
-		w.WriteHeader(http.StatusOK)
-		w.Write(returnBodyInBytes)
+		returnBody := getSumOrderResponse{total}
+		returnWithMarshal(w, http.StatusOK, &returnBody)
 	})
 }
 
-type getSumOrder struct {
-	total int
+type getSumOrderResponse struct {
+	Total int `json:"total"`
+}
+type errorResponse struct {
+	Message string `json:"message"`
+}
+
+func returnWithMarshal(w http.ResponseWriter, statusCode int, obj interface{}) {
+	body, err := json.Marshal(obj)
+	if err != nil {
+		http.Error(w, "InternalError", http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(statusCode)
+	w.Header().Add("Content-Type", "application/json")
+	w.Write(body)
 }
