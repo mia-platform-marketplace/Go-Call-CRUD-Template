@@ -12,7 +12,7 @@ import (
 )
 
 func TestAdder(t *testing.T) {
-	crudBaseURL := "http://crud.example.org"
+	crudBaseURL := "http://crud.example.org/"
 	client, err := jsonclient.New(jsonclient.Options{
 		BaseURL: crudBaseURL,
 	})

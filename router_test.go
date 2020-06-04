@@ -21,7 +21,7 @@ var jsonschemaPath = "./serviceconfiguration/config.schema.json"
 var providerTokenPassPhrase = "providerTokenPassPhrase"
 
 func TestSumTotalPrice(t *testing.T) {
-	crudBaseURL := "http://crud.example.org"
+	crudBaseURL := "http://crud.example.org/"
 	env := EnvironmentVariables{
 		CrudBaseURL: crudBaseURL,
 	}
