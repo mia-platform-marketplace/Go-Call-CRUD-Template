@@ -50,13 +50,13 @@ curl <YOUR_PROJECT_HOST>/go-crud-call/get-sum
 You should see the following message:
 
 ```json
-{&quot;total&quot;:0}
+{"total":0}
 ```
 
 Since there are no orders in your CRUD, you received a total price equivalent to 0. You can launch a POST request on your terminal to change this:
 
 ```shell
-curl --request POST   --url <YOUR_PROJECT_HOST>/v2/orders/   --header 'accept: */*'   --header 'content-type: application/json'   --data '{&quot;status&quot;:&quot;delivered&quot;,&quot;totalPrice&quot;:3,&quot;__STATE__&quot;:&quot;PUBLIC&quot;}'
+curl --request POST   --url <YOUR_PROJECT_HOST>/v2/orders/   --header 'accept: */*'   --header 'content-type: application/json'   --data '{"status":"delivered","totalPrice":3,"__STATE__":"PUBLIC"}'
   ```
 
 After launching this command you should see in your terminal the id (<YOUR_ORDER_ID>) of the order that you have just inserted in your CRUD.
@@ -70,7 +70,7 @@ curl <YOUR_PROJECT_HOST>/go-crud-call/get-sum
 the message that you see should be something like this:
 
 ```json
-{&quot;total&quot;:3}
+{"total":3}
 ```
 
 Congratulations! You have successfully learnt how to use our Go _Call CRUD_ Template on the DevOps Console!
