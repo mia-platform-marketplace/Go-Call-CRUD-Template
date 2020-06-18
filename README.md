@@ -33,12 +33,44 @@ A more detailed description on how to create and add properties to a CRUD can be
 Now you need to expose this CRUD with an endpoint. In particular, your *go-crud* microservice is designed to contact a CRUD with the following endpoint path: */orders*. In a similar way to what you have done when creating an endpoint to your microservice, you have to select _Endpoints_ section again.  
 Give to your endpoint the following path: **/orders**. Then, specify that you want to connect your endpoint to a CRUD and, finally, select *orders_crud*.
 
-After having created an endpoint to your microservice you should save the changes that you have done to your project in the DevOps console.  
+After having created an endpoint to your CRUD you should save the changes that you have done to your project in the DevOps console.  
 Remember to choose a meaningful title for your commit (e.g 'created service go-crud'). After some seconds you will be prompted with a popup message which confirms that you have successfully saved all your changes.  
 Step 4 of [Microservice from template - Get started](https://docs.mia-platform.eu/development_suite/api-console/api-design/custom_microservice_get_started/#4-save-the-project) section of Mia-Platform documentation will explain how to correctly save the changes you have made on your project in the DevOps console.
 
 Once all the changes that you have made are saved, you should deploy your project through the DevOps Console. Go to the **Deploy** area of the DevOps Console.  
 Once here select the environment and the branch you have worked on and confirm your choices clicking on the *deploy* button. When the deploy process is finished you will receveive a pop-up message that will inform you.  
 Step 5 of [Microservice from template - Get started](https://docs.mia-platform.eu/development_suite/api-console/api-design/custom_microservice_get_started/#5-deploy-the-project-through-the-api-console) section of Mia-Platform documentation will explain in detail how to correctly deploy your project.
+
+Now, if you launch the following command on your terminal (remember to replace `<YOUR_PROJECT_HOST>` with the real host of your project):
+
+```shell
+curl <YOUR_PROJECT_HOST>/go-crud-call/get-sum
+```
+
+You should see the following message:
+
+```json
+{&quot;total&quot;:0}
+```
+
+Since there are no orders in your CRUD, you received a total price equivalent to 0. You can launch a POST request on your terminal to change this:
+
+```shell
+curl --request POST   --url <YOUR_PROJECT_HOST>/v2/orders/   --header 'accept: */*'   --header 'content-type: application/json'   --data '{&quot;status&quot;:&quot;delivered&quot;,&quot;totalPrice&quot;:3,&quot;__STATE__&quot;:&quot;PUBLIC&quot;}'
+  ```
+
+After launching this command you should see in your terminal the id (<YOUR_ORDER_ID>) of the order that you have just inserted in your CRUD.
+
+Now, if you lanch again:
+
+```shell
+curl <YOUR_PROJECT_HOST>/go-crud-call/get-sum
+```
+
+the message that you see should be something like this:
+
+```json
+{&quot;total&quot;:3}
+```
 
 Congratulations! You have successfully learnt how to use our Go _Call CRUD_ Template on the DevOps Console!
