@@ -50,7 +50,7 @@ curl <YOUR_PROJECT_HOST>/go-crud-call/get-sum
 You should see the following message:
 
 ```json
-{&quot;total&quot;:0}
+
 ```
 
 Since there are no orders in your CRUD, you received a total price equivalent to 0. You can launch a POST request on your terminal to change this:
