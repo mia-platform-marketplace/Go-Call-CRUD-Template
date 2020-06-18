@@ -27,7 +27,7 @@ Step 3 of [Microservice from template - Get started](https://docs.mia-platform.e
 The microservice that you have just created is able to connect to a CRUD of orders and to perform GET requests to obtain the total price of the orders in delivered status. The next step is to create this CRUD of orders so that your microservice can connect to it.  
 
 From the Design area of your project select "CRUD" on the menu on the left sidebar. Give your CRUD the following name: **orders_crud**. Then confirm that you want to create a CRUD.  
-Once you have created your CRUD of orders you can add some properties to it. In this walkthrough you should add two simple properties to your CRUD: *status*, of type *String*, and *totalPrice*, of type *Number*..  
+Once you have created your CRUD of orders you can add some properties to it. In this walkthrough you should add two simple properties to your CRUD: *status*, of type *String*, and *totalPrice*, of type *Number*.  
 A more detailed description on how to create and add properties to a CRUD can be found in [CRUD](https://docs.mia-platform.eu/development_suite/api-console/api-design/crud_advanced/) section of Mia-Platform documentation.
 
 Now you need to expose this CRUD with an endpoint. In particular, your *go-crud* microservice is designed to contact a CRUD with the following endpoint path: */orders*. In a similar way to what you have done when creating an endpoint to your microservice, you have to select _Endpoints_ section again.  
