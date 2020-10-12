@@ -20,6 +20,8 @@ github.com/davidebianchi/go-jsonclient v1.0.0 h1:vXlyPm/0doKjXhfVsrLKVgMoLFRImtd
 github.com/davidebianchi/go-jsonclient v1.0.0/go.mod h1:/FkRFgTrzKQlzbPFD2wsZuQQqM0ACSyYL/BTtRCnTOI=
 github.com/davidebianchi/go-jsonclient v1.1.0 h1:AsQO2RYSE7blKgEAHBB8txOQAiiRpTWZW5ZVcikzPkI=
 github.com/davidebianchi/go-jsonclient v1.1.0/go.mod h1:/FkRFgTrzKQlzbPFD2wsZuQQqM0ACSyYL/BTtRCnTOI=
+github.com/davidebianchi/go-jsonclient v1.2.0 h1:xM7YoyARq3AKmUVPn2DB1tMV14YgXbkdzX7oXMB/5Kw=
+github.com/davidebianchi/go-jsonclient v1.2.0/go.mod h1:CDSdLQE0osEoFm7EOQ8Kw/70QOL/eOUu11UBk4mLvPE=
 github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
 github.com/dgryski/go-sip13 v0.0.0-20181026042036-e10d5fee7954/go.mod h1:vAd38F8PWV+bWy6jNmig1y/TA+kYO4g3RSRF0IAv0no=
 github.com/fatih/structs v1.1.0/go.mod h1:9NiDSp5zOcgEDl+j00MP/WkGVPOlPRLejGD8Ga6PJ7M=
