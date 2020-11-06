@@ -35,7 +35,10 @@ func setupRouter(router *mux.Router, env *EnvironmentVariables) {
 		panic(fmt.Errorf("%w: error creating client", err))
 	}
 
-	a := adder{client: client}
+	a := adder{
+		client:   client,
+		basePath: env.CrudBasePath,
+	}
 
 	router.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
 	})

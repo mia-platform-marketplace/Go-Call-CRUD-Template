@@ -29,6 +29,7 @@ type EnvironmentVariables struct {
 	ServiceVersion       string
 	DelayShutdownSeconds int
 	CrudBaseURL          string
+	CrudBasePath         string
 }
 
 var envVariablesConfig = []configlib.EnvConfig{
@@ -58,6 +59,11 @@ var envVariablesConfig = []configlib.EnvConfig{
 	{
 		Key:      "CRUD_BASE_URL",
 		Variable: "CrudBaseURL",
+		Required: true,
+	},
+	{
+		Key:      "CRUD_BASE_PATH",
+		Variable: "CrudBasePath",
 		Required: true,
 	},
 }

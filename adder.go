@@ -10,7 +10,8 @@ import (
 )
 
 type adder struct {
-	client *jsonclient.Client
+	client   *jsonclient.Client
+	basePath string
 }
 
 var (
@@ -19,7 +20,7 @@ var (
 )
 
 func (a *adder) sum(cxt context.Context) (int, error) {
-	urlPath := "orders/?status=delivered"
+	urlPath := fmt.Sprintf("%s/?status=delivered", a.basePath)
 	req, err := a.client.NewRequestWithContext(cxt, http.MethodGet, urlPath, nil)
 	if err != nil {
 		return 0, fmt.Errorf("%w: %s", errGenericError, err.Error())

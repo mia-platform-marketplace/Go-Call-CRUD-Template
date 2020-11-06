@@ -22,8 +22,10 @@ var providerTokenPassPhrase = "providerTokenPassPhrase"
 
 func TestSumTotalPrice(t *testing.T) {
 	crudBaseURL := "http://crud.example.org/"
+	crudBasePath := "/some-crud"
 	env := EnvironmentVariables{
-		CrudBaseURL: crudBaseURL,
+		CrudBaseURL:  crudBaseURL,
+		CrudBasePath: crudBasePath,
 	}
 	expectedQuery, err := url.ParseQuery("status=delivered")
 	require.NoError(t, err)
@@ -31,7 +33,7 @@ func TestSumTotalPrice(t *testing.T) {
 	t.Run("should return the right number", func(t *testing.T) {
 		defer gock.Off()
 
-		mockGetOrdersWithQueryParameters(crudBaseURL, &expectedQuery, 200, []map[string]int{
+		mockGetOrdersWithQueryParameters(crudBaseURL, crudBasePath, &expectedQuery, 200, []map[string]int{
 			{"totalPrice": 0},
 			{"totalPrice": 3},
 			{"totalPrice": 1},
@@ -55,7 +57,7 @@ func TestSumTotalPrice(t *testing.T) {
 	t.Run("should return error if crud call fails", func(t *testing.T) {
 		defer gock.Off()
 
-		mockGetOrdersWithQueryParameters(crudBaseURL, &expectedQuery, 500, []map[string]int{})
+		mockGetOrdersWithQueryParameters(crudBaseURL, crudBasePath, &expectedQuery, 500, []map[string]int{})
 		serviceRouter := mux.NewRouter()
 		setupRouter(serviceRouter, &env)
 

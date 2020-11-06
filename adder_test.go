@@ -13,6 +13,7 @@ import (
 
 func TestAdder(t *testing.T) {
 	crudBaseURL := "http://crud.example.org/"
+	crudBasePath := "/my-crud"
 	client, err := jsonclient.New(jsonclient.Options{
 		BaseURL: crudBaseURL,
 	})
@@ -24,10 +25,10 @@ func TestAdder(t *testing.T) {
 	t.Run("should correctly calculate the sum", func(t *testing.T) {
 		defer gock.Off()
 
-		a := adder{client: client}
+		a := adder{client: client, basePath: crudBasePath}
 		cxt := context.Background()
 
-		mockGetOrdersWithQueryParameters(crudBaseURL, &expectedQuery, 200, []map[string]int{
+		mockGetOrdersWithQueryParameters(crudBaseURL, crudBasePath, &expectedQuery, 200, []map[string]int{
 			{"totalPrice": 0},
 			{"totalPrice": 3},
 			{"totalPrice": 1},
@@ -42,10 +43,10 @@ func TestAdder(t *testing.T) {
 	t.Run("should return if crud return 500", func(t *testing.T) {
 		defer gock.Off()
 
-		a := adder{client: client}
+		a := adder{client: client, basePath: crudBasePath}
 		cxt := context.Background()
 
-		mockGetOrdersWithQueryParameters(crudBaseURL, &expectedQuery, 500, "")
+		mockGetOrdersWithQueryParameters(crudBaseURL, crudBasePath, &expectedQuery, 500, "")
 
 		total, err := a.sum(cxt)
 
@@ -54,7 +55,7 @@ func TestAdder(t *testing.T) {
 	})
 }
 
-func mockGetOrdersWithQueryParameters(baseURL string, query *url.Values, statusCode int, responseBody interface{}) {
+func mockGetOrdersWithQueryParameters(baseURL string, crudBasePath string, query *url.Values, statusCode int, responseBody interface{}) {
 	mockRequest := gock.New(baseURL).
 		Get("/orders/")
 	if query != nil {
