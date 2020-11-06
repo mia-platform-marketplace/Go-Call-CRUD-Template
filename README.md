@@ -23,6 +23,7 @@ This example requires to set the value of an environment variable to work proper
 
 ```shell
 CRUD_BASE_URL = http://crud-service/
+CRUD_BASE_PATH = /orders-crud
 ```
 
 More information on how to set an environment variable can be found in [Environment Variable Configuration](https://docs.mia-platform.eu/development_suite/api-console/api-design/services/#environment-variable-configuration) section of Mia-Platform documentation.
@@ -45,7 +46,7 @@ A more detailed description on how to create and add properties to a CRUD can be
 ## Expose an endpoint to your CRUD
 
 Now you need to expose this CRUD with an endpoint. In particular, your *go-crud* microservice is designed to contact a CRUD with the following endpoint path: */orders*. In a similar way to what you have done when creating an endpoint to your microservice, you have to select _Endpoints_ section again.  
-Give to your endpoint the following path: **/orders**. Then, specify that you want to connect your endpoint to a CRUD and, finally, select *orders_crud*.
+Give to your endpoint the following path: **/orders**. Then, specify that you want to connect your endpoint to a CRUD and, finally, select the proper CRUD base path (it should be */orders-crud*).
 
 ## Save your changes
 
