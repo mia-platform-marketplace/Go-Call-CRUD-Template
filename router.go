@@ -35,7 +35,10 @@ func setupRouter(router *mux.Router, env *EnvironmentVariables) {
 		panic(fmt.Errorf("%w: error creating client", err))
 	}
 
-	a := adder{client: client}
+	adderInstance := adder{
+		client:   client,
+		basePath: env.CrudBasePath,
+	}
 
 	router.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
 	})
@@ -43,7 +46,7 @@ func setupRouter(router *mux.Router, env *EnvironmentVariables) {
 	router.HandleFunc("/get-sum", func(w http.ResponseWriter, req *http.Request) {
 		logger := glogger.Get(req.Context())
 
-		total, err := a.sum(req.Context())
+		total, err := adderInstance.sum(req.Context())
 		if err != nil {
 			logger.WithError(err).Error("adder error")
 
