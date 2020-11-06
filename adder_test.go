@@ -55,13 +55,12 @@ func TestAdder(t *testing.T) {
 	})
 }
 
-func mockGetOrdersWithQueryParameters(baseURL string, crudBasePath string, query *url.Values, statusCode int, responseBody interface{}) {
-	mockRequest := gock.New(baseURL).
-		Get("/orders/")
+func mockGetOrdersWithQueryParameters(baseURL string, basePath string, query *url.Values, statusCode int, responseBody interface{}) {
+	mockRequest := gock.New(baseURL).Get(basePath)
+
 	if query != nil {
 		mockRequest.URLStruct.RawQuery = query.Encode()
 	}
-	mockRequest.
-		Reply(statusCode).
-		JSON(responseBody)
+
+	mockRequest.Reply(statusCode).JSON(responseBody)
 }
