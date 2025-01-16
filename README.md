@@ -4,6 +4,8 @@
 [![Go Report Card][go-report-card]][go-report-card-link]
 [![Coverage Status][coverall-svg]][coverall-io]
 
+> ⚠️ Warning: This repository is no longer maintained.
+
 This walkthrough will explain you how to correctly create a microservice to access to a CRUD of orders and get the total price of the delivered ones from the DevOps Console.
 
 ## Create a microservice
